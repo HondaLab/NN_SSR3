@@ -18,7 +18,10 @@ start = time.time()
 data_number = 0
 teacher_data_list = []
 
-while 1:
+key=keyin.Keyboard()
+ch='c'
+
+while ch!='q':
     if data_number >= int(data_num_limit):
         
         f1 = open('part_data_in' + str(data_name) + '.csv','w',encoding='utf-8')
@@ -50,3 +53,4 @@ while 1:
     except (BlockingIOError,socket.error):
         time.sleep(0.0001)
 
+    ch=key.read()
