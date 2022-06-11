@@ -34,13 +34,8 @@ def Run(mL,mR,left,right):
     mL.run(left)
     mR.run(right)
 
-def send_data(l,r,vw):
-    camera.cam.capture(camera.rawCapture, format="bgr", use_video_port=True)
-    frame = camera.rawCapture.array
-    frame2 = frame[ic.im_cut_up:ic.im_cut_below,:,:]
-    vw.write(frame2)
-    cv2.imshow('frame',frame2)
-    cv2.waitKey(1)
+def send_data(frame,l,r,vw):
+
     for i in range(0,camera.RES_X):
        picture_data.append(sum(frame[ic.im_cut_up:ic.im_cut_below,i,0]))
     for i in range(0,camera.RES_X):
@@ -69,7 +64,6 @@ def send_data(l,r,vw):
     picture_data.append(r)
     udp_send_data.send(picture_data)
     picture_data.clear()
-    camera.rawCapture.truncate(0)
 
 if __name__=="__main__":
     OUT_FILE="data_collection_output.mp4"
@@ -105,18 +99,25 @@ if __name__=="__main__":
     while ch!="q":
         ch = key.read()
         print("\r %4d %4d" % (left,right),end='')
+        camera.cam.capture(camera.rawCapture, format="bgr", use_video_port=True)
+        frame = camera.rawCapture.array
+        frame2 = frame[ic.im_cut_up:ic.im_cut_below,:,:]
+        vw.write(frame2)
+        cv2.imshow('frame',frame2)
+        cv2.waitKey(1)
+
         try:
             if ch == "a" :
                 left+= STEP
                 right+= STEP
                 send_start = "start"
-                send_data(left,right,vw)
+                send_data(frame,left,right,vw)
                 #in_data_posi = in_data_posi + 1
                 Run(mL,mR,left,right)
             if ch == "z" :
                 left-= STEP
                 right-= STEP
-                send_data(left,right,vw)
+                send_data(frame,left,right,vw)
                 #in_data_posi = in_data_posi + 1
                 Run(mL,mR,left,right)
 
@@ -125,7 +126,7 @@ if __name__=="__main__":
                 left = left - HANDLE_STEP
                 right_flag = right_flag + HANDLE_STEP
                 left_flag = left_flag - HANDLE_STEP
-                send_data(left,right,vw)
+                send_data(frame,left,right,vw)
                 #in_data_posi = in_data_posi + 1
                 Run(mL,mR,left,right)
             if ch == "k" :
@@ -133,7 +134,7 @@ if __name__=="__main__":
                 left = left - left_flag
                 right_flag = 0
                 left_flag = 0
-                send_data(left,right,vw)
+                send_data(frame,left,right,vw)
                 #in_data_posi = in_data_posi + 1
                 Run(mL,mR,left,right)
             if ch == "l" :
@@ -141,7 +142,7 @@ if __name__=="__main__":
                 left = left + HANDLE_STEP
                 right_flag = right_flag - HANDLE_STEP
                 left_flag = left_flag + HANDLE_STEP
-                send_data(left,right,vw)
+                send_data(frame,left,right,vw)
                 #in_data_posi = in_data_posi + 1
                 Run(mL,mR,left,right)
 
@@ -149,7 +150,7 @@ if __name__=="__main__":
             Run(mL,mR,left,right)
             if send_start == "start":
                 if now-init > PERIOD:
-                    send_data(left,right)
+                    send_data(frame,left,right,vw)
                     init = now
             now = time.time()
             '''
@@ -157,6 +158,8 @@ if __name__=="__main__":
             mL.run(0)
             mR.run(0)
             break
+
+        camera.rawCapture.truncate(0)
 
     print("\nTidying up")
     vw.release()
