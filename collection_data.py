@@ -98,7 +98,10 @@ if __name__=="__main__":
     send_num = 0
     while ch!="q":
         ch = key.read()
+
         print("\r %4d %4d" % (left,right),end='')
+
+        # カメラ画像
         camera.cam.capture(camera.rawCapture, format="bgr", use_video_port=True)
         frame = camera.rawCapture.array
         frame2 = frame[ic.im_cut_up:ic.im_cut_below,:,:]
