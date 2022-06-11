@@ -30,32 +30,7 @@ Eps=1e-08
 Eta=0.3
 Weight_Decay_Rate=0
 
-'''
-data_in = pd.read_csv("testdata_in.csv")#データの読み込み
-data_out = pd.read_csv("testdata_out.csv")
 
-data_in_col = len(data_in.columns)
-data_in_len = len(data_in)                   #データの行数を取得
-data_out_col = len(data_out.columns)
-data_out_len = len(data_out)
-
-for i in range(0,data_in_col):
-    data_mean = data_in.iloc[:,i].mean()
-    data_stand = data_in.iloc[:,i].std()
-    for j in range(0,data_in_len):
-        data_in.iloc[j,i] = (data_in.iloc[j,i] - data_mean)/data_stand
-    
-for i in range(0,data_out_col):
-    data_mean = data_out.iloc[:,i].mean()
-    data_stand = data_out.iloc[:,i].std()
-    for j in range(0,data_out_len):
-        data_out.iloc[j,i] = (data_out.iloc[j,i] - data_mean)/data_stand 
-'''
-
-#path1 = "prediction_data_in.csv"
-#path2 = "prediction_data_out.csv"
-#path1 = "chainer_data_in_test.csv"
-#path2 = "chainer_motor_out_test.csv"
 path1 = "chainer_data_in.csv"
 path2 = "chainer_motor_out.csv"
 
