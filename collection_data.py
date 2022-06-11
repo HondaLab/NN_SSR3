@@ -139,13 +139,15 @@ if __name__=="__main__":
                 send_data(left,right,vw)
                 #in_data_posi = in_data_posi + 1
                 Run(mL,mR,left,right)
-                
-            #Run(mL,mR,left,right)
-            #if send_start == "start":
-                #if now-init > PERIOD:
-                    #send_data(left,right)
-                    #init = now
-            #now = time.time()
+
+            '''    
+            Run(mL,mR,left,right)
+            if send_start == "start":
+                if now-init > PERIOD:
+                    send_data(left,right)
+                    init = now
+            now = time.time()
+            '''
         except KeyboardInterrupt:
             mL.run(0)
             mR.run(0)
