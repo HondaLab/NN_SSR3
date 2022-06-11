@@ -1,6 +1,6 @@
 #!/usr/bin/sh
-file=push.sh
-comment=git push用のスクリプト
+file=collection_data.py
+comment=ロボットで実行する学習データ収集プログラム
 git add $file
 sleep 2
 git commit -m "$comment"

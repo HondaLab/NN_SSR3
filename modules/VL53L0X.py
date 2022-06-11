@@ -94,7 +94,8 @@ class VL53L0X(object):
 
     def start_ranging(self, mode = VL53L0X_GOOD_ACCURACY_MODE):
         """Start VL53L0X ToF Sensor Ranging"""
-        tof_lib.startRanging(self.my_object_number, mode, self.device_address, self.TCA9548A_Device, self.TCA9548A_Address)
+        res=tof_lib.startRanging(self.my_object_number, mode, self.device_address, self.TCA9548A_Device, self.TCA9548A_Address)
+        return res
         
     def stop_ranging(self):
         """Stop VL53L0X ToF Sensor Ranging"""

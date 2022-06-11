@@ -1,7 +1,7 @@
 import socket
 
 # 教師データを受け取るPCのアドレス
-recv_addr = '172.16.7.19'
+recv_addr = '172.16.8.79'
 sensor_port = 50005
 
 class UDP_Send():
