@@ -1,11 +1,7 @@
 #!/usr/bin/python3
 
-# ssr2_rc2a.py
-# CC BY-SA Yasushi Honda 2020 2/25 
-
-# How to execute
-# sudo pigpiod
-# pyhton3 hjkl1.py 
+# collection_data.py
+# Execute this on a robot.
 
 import modules.keyin as keyin # キーボード入力を監視するモジュール
 import modules.motor5a as mt # pwmでモーターを回転させるためのモジュール
