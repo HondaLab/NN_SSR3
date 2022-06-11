@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import socket
-import modules.li_socket as sk
+import modules.socket as sk
 import time
 import modules.keyin as keyin
 import matplotlib.pyplot as plt
@@ -11,7 +11,7 @@ import sys
 
 data_name = input("Please input the last name of data (Arabic numerals) : ")
 data_num_limit = input("How many data do you want recive : ")
-udp = sk.UDP_Recv(sk.data_reciving_terminal,sk.sensor_port)
+udp = sk.UDP_Recv(sk.recv_addr,sk.sensor_port)
 
 data = [0]
 start = time.time()
