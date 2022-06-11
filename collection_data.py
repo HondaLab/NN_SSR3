@@ -5,7 +5,7 @@
 
 import modules.keyin as keyin # キーボード入力を監視するモジュール
 import modules.motor5a as mt # pwmでモーターを回転させるためのモジュール
-import modules.imageCut as ic
+import imageCut as ic
 import modules.vl53_4a as lidar
 import modules.socket as sk
 import modules.camera as camera
