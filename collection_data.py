@@ -17,7 +17,7 @@ import modules.socket as sk
 import time
 import modules.camera as camera
 
-tofR,tofL,tofC=lidar.start()
+tofL,tofC,tofR=lidar.start()
 
 picture_data = []
 
