@@ -1,5 +1,6 @@
 import socket
 
+# 教師データを受け取るPCのアドレス
 recv_addr = '172.16.7.19'
 sensor_port = 50005
 
