@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+file=modules/socket.py
+comment=recv_addrにPCのアドレスを記述
+git add $file
+sleep 2
+git commit -m "$comment"
+sleep 2
+git push
