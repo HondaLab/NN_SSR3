@@ -1,6 +1,6 @@
 #!/usr/bin/sh
-file=nn_ssr3_h1.py
-comment=ロボットの自律走行プログラム
+file=push.sh
+comment=git push用のスクリプト
 git add $file
 sleep 2
 git commit -m "$comment"
