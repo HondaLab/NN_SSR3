@@ -13,7 +13,7 @@ from subprocess import Popen
 import numpy as np
 import modules.vl53_4a as lidar
 import socket
-import modules.li_socket as sk
+import modules.socket as sk
 import time
 import modules.camera as camera
 
@@ -75,7 +75,7 @@ if __name__=="__main__":
     print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
     vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, size)
-    udp_send_data = sk.UDP_Send(sk.data_reciving_terminal,sk.sensor_port)
+    udp_send_data = sk.UDP_Send(sk.recv_addr,sk.sensor_port)
    
     STEP=20
     HANDLE_STEP=15
