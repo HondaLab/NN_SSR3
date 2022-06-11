@@ -34,9 +34,9 @@ def start():
    # GPIO for Sensor 1 shutdown pin
    sensor1_shutdown = 22
    # GPIO for Sensor 2 shutdown pin
-   sensor2_shutdown = 23
+   sensor2_shutdown = 4
    # GPIO for Sensor 3 shutdown pin
-   sensor3_shutdown = 27
+   sensor3_shutdown = 23
 
    GPIO.setwarnings(False)
 
@@ -56,8 +56,8 @@ def start():
 
    # Create one object per VL53L0X passing the address to give to each.
    tof1 = vl53.VL53L0X(address=0x2B)
-   tof2 = vl53.VL53L0X(address=0x2D)
-   tof3 = vl53.VL53L0X(address=0x2C)
+   tof2 = vl53.VL53L0X(address=0x2C)
+   tof3 = vl53.VL53L0X(address=0x2D)
 
    # Set shutdown pin high for the first VL53L0X then 
    # call to start ranging 
@@ -84,7 +84,7 @@ def start():
    #   timing = 20000
    #print ("Timing %d ms" % (timing/1000))
 
-   return tof2,tof1,tof3
+   return tof1,tof2,tof3
 
 def shutdown(tof1,tof2,tof3):
    tof1.stop_ranging()
