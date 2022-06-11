@@ -1,6 +1,6 @@
 #!/usr/bin/sh
-file=modules/socket.py
-comment=recv_addrにPCのアドレスを記述
+file=nn_ssr3_h1.py
+comment=ロボットの自律走行プログラム
 git add $file
 sleep 2
 git commit -m "$comment"
