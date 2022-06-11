@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# This program integrats learning data and transform for the Chainer
 import numpy as np
 #import matplotlib.pyplot as plt
 import time
@@ -39,8 +40,3 @@ f2.close()
 f3.close()
 time.sleep(1)
 print("the number of picture : ",picture_num)
-
-
-
-        
-
