@@ -6,19 +6,22 @@
 import modules.keyin as keyin # キーボード入力を監視するモジュール
 import modules.motor5a as mt # pwmでモーターを回転させるためのモジュール
 import modules.imageCut as ic
+import modules.vl53_4a as lidar
+import modules.socket as sk
+import modules.camera as camera
 import cv2
 import time
 import pigpio
 from subprocess import Popen
 import numpy as np
-import modules.vl53_4a as lidar
 import socket
-import modules.socket as sk
-import time
-import modules.camera as camera
+import sys
 
-tofL,tofC,tofR=lidar.start3()
-print(tofL,tofC,tofR)
+tofL,tofC,tofR,error=lidar.start3()
+if error!=0:
+    print("error= %3d" % error)
+    print("Pleas check GPIO of tofs.")
+    sys.exit()
 
 picture_data = []
 
