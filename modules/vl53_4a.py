@@ -34,7 +34,7 @@ def start3():
    # GPIO for Sensor 1 shutdown pin
    sensor1_shutdown = 22
    # GPIO for Sensor 2 shutdown pin
-   sensor2_shutdown = 4
+   sensor2_shutdown = 27
    # GPIO for Sensor 3 shutdown pin
    sensor3_shutdown = 23
 
@@ -61,28 +61,28 @@ def start3():
 
    # Set shutdown pin high for the first VL53L0X then 
    # call to start ranging 
+   error=0
    GPIO.output(sensor1_shutdown, GPIO.HIGH)
    time.sleep(0.50)
    res=tof1.start_ranging(vl53.VL53L0X_HIGH_SPEED_MODE)
    #tof1.start_ranging(vl53.VL53L0X_BETTER_ACCURACY_MODE)
    #tof1.start_ranging(vl53.VL53L0X_LONG_RANGE_MODE)
-   if res!=25: error=1
+   if res!=25: error+=1
    
 
    # Set shutdown pin high for the second VL53L0X then 
-   error=0
    # call to start ranging 
    GPIO.output(sensor2_shutdown, GPIO.HIGH)
    time.sleep(0.50)
    res=tof2.start_ranging(vl53.VL53L0X_HIGH_SPEED_MODE)
-   if res!=25: error=1
+   if res!=25: error+=1
 
    # Set shutdown pin high for the second VL53L0X then 
    # call to start ranging 
    GPIO.output(sensor3_shutdown, GPIO.HIGH)
    time.sleep(0.50)
    res=tof3.start_ranging(vl53.VL53L0X_HIGH_SPEED_MODE)
-   if res!=25: error=1
+   if res!=25: error+=1
 
 
    #timing = tof.get_timing()
