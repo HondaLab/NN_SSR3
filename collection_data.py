@@ -18,6 +18,7 @@ import time
 import modules.camera as camera
 
 tofL,tofC,tofR=lidar.start()
+print(tofL,tofC,tofR)
 
 picture_data = []
 
