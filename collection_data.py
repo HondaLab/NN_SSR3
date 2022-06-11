@@ -18,6 +18,7 @@ import socket
 import sys
 
 tofL,tofC,tofR,error=lidar.start3()
+# tofセンサーのstartにエラーがあったら停止
 if error!=0:
     print("error= %3d" % error)
     print("Pleas check GPIO of tofs.")
