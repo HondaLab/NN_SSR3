@@ -9,6 +9,8 @@ import csv
 import os
 import sys
 
+PERIOD=0.5
+
 data_name = input("Please input the last name of data (Arabic numerals) : ")
 data_num_limit = input("How many data do you want recive : ")
 udp = sk.UDP_Recv(sk.recv_addr,sk.sensor_port)
@@ -20,7 +22,12 @@ teacher_data_list = []
 
 key=keyin.Keyboard()
 ch='c'
-
+print("Input 'q' to stop.")
+print("     time     rate")
+cnt=0
+now=time.time()
+start=now
+init=now
 while ch!='q':
     if data_number >= int(data_num_limit):
         
@@ -53,4 +60,14 @@ while ch!='q':
     except (BlockingIOError,socket.error):
         time.sleep(0.0001)
 
+    now=time.time()
+    if now-start>PERIOD:
+        rate=cnt/PERIOD
+        print("\r %8.2f %8.2f" % (now-init,rate),end='')
+        cnt=0
+        start=now
+
+    cnt+=1
     ch=key.read()
+
+print('Bye bye')
