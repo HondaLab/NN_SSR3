@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 file=collection_data.py
-comment=ロボットで実行する学習データ収集プログラム
+comment=学習データ収集プログラム．ロボットで実行
 git add $file
 sleep 2
 git commit -m "$comment"
