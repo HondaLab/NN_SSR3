@@ -13,7 +13,7 @@ import modules.keyin as keyin # キーボード入力を監視するモジュー
 import modules.motor5a as mt # pwmでモーターを回転させるためのモジュール
 import time
 import pigpio
-import modules.imageCut as ic
+import imageCut as ic
 from subprocess import Popen
 import modules.camera as camera
 
@@ -136,6 +136,7 @@ while ch!="q":
         mR.run(0)
         camera.rawCapture.truncate(0)
         break
+    camera.rawCapture.truncate(0) 
 
 camera.rawCapture.truncate(0) 
 vw.release()        
