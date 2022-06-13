@@ -8,7 +8,6 @@ import chainer.functions as F
 import chainer.links as L
 from chainer import Variable, optimizers, serializers, Chain
 import re
-import os
 import modules.keyin as keyin # キーボード入力を監視するモジュール
 import modules.motor5a as mt # pwmでモーターを回転させるためのモジュール
 import time
@@ -16,6 +15,7 @@ import pigpio
 import imageCut as ic
 from subprocess import Popen
 import modules.camera as camera
+import os
 
 OUT_FILE="robot_perspective_flim.mp4"
 fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
@@ -79,67 +79,63 @@ print("Input q to stop.")
 mL=mt.Lmotor(17)
 mR=mt.Rmotor(18)
 
-#for cap in cam.capture_continuous(rawCapture, format="bgr", use_video_port="True"):
+
 TIME = 500
 start = time.time()
 while ch!="q":
     ch = key.read()
-    try:
-        if ch == "q":
-            break
-        camera.cam.capture(camera.rawCapture, format="bgr", use_video_port=True)
-        frame = camera.rawCapture.array
-        frame2 = frame[ic.im_cut_up:ic.im_cut_below,:,:]
-        cv2.imshow('frame',frame2)
-        vw.write(frame2)
-        cv2.waitKey(1)
-        for i in range(0,one_channel):
-            prediction_data_in[0,i] = sum(frame[ic.im_cut_up:ic.im_cut_below,i,0])
-            prediction_data_in[0,i+one_channel] = sum(frame[ic.im_cut_up:ic.im_cut_below,i,1])
-            prediction_data_in[0,i+one_channel+one_channel] = sum(frame[ic.im_cut_up:ic.im_cut_below,i,2])
-            
-            prediction_data_in[0,i] = prediction_data_in[0,i]/data_in_max[0,i]
-            prediction_data_in[0,i+one_channel] = prediction_data_in[0,i+one_channel]/data_in_max[0,i+one_channel]
-            prediction_data_in[0,i+one_channel+one_channel] = prediction_data_in[0,i+one_channel+one_channel]/data_in_max[0,i+one_channel+one_channel]
-        x_in = [[]]
-        for j in range(0,prediction_data_in.shape[1]):
-            x_in[0].append(float(prediction_data_in[0][j]))
-        x_in_train = Variable(np.array(x_in,dtype=np.float32))
-        yy = nn_prediction.fwd(x_in_train)
-        yy = re.sub('variable','',str(yy))
-        yy = yy[3:-3]
-        yy = yy.split()  #yy is a list
-        for k in range(0,len(yy)):
-            y_out[0,k] = float(yy[k]) * data_out_max[0,k]        
-        left=round(y_out[0,0])*1
-        right=round(y_out[0,1])*1
-        print('\r',end = '')
-        print("left : ",left,"      ","right : ",right,end = '')
-        if left >= 100:
-            left = 99
-        if left <= -100:
-            left = -99
-        if right >= 100:
-            right = 99
-        if right <= -100:
-            right = -99
-        mL.run(left)
-        mR.run(right)
-        camera.rawCapture.truncate(0) 
-        end = time.time()
-        if end-start > TIME:
-            print("\n")
-            print("Time : ",np.floor(end-start))
-            break
-    except KeyboardInterrupt:
-        mL.run(0)
-        mR.run(0)
-        camera.rawCapture.truncate(0)
-        break
+    camera.cam.capture(camera.rawCapture, format="bgr", use_video_port=True)
+    frame = camera.rawCapture.array
+    frame2 = frame[ic.im_cut_up:ic.im_cut_below,:,:]
+    cv2.imshow('frame',frame2)
+    vw.write(frame2)
+    cv2.waitKey(1)
     camera.rawCapture.truncate(0) 
 
+    for i in range(0,one_channel):
+        prediction_data_in[0,i] = sum(frame[ic.im_cut_up:ic.im_cut_below,i,0])
+        prediction_data_in[0,i+one_channel] = sum(frame[ic.im_cut_up:ic.im_cut_below,i,1])
+        prediction_data_in[0,i+one_channel+one_channel] = sum(frame[ic.im_cut_up:ic.im_cut_below,i,2])
+            
+        prediction_data_in[0,i] = prediction_data_in[0,i]/data_in_max[0,i]
+        prediction_data_in[0,i+one_channel] = prediction_data_in[0,i+one_channel]/data_in_max[0,i+one_channel]
+        prediction_data_in[0,i+one_channel+one_channel] = prediction_data_in[0,i+one_channel+one_channel]/data_in_max[0,i+one_channel+one_channel]
+    x_in = [[]]
+    for j in range(0,prediction_data_in.shape[1]):
+        x_in[0].append(float(prediction_data_in[0][j]))
+    x_in_train = Variable(np.array(x_in,dtype=np.float32))
+    yy = nn_prediction.fwd(x_in_train)
+    yy = re.sub('variable','',str(yy))
+    yy = yy[3:-3]
+    yy = yy.split()  #yy is a list
+    for k in range(0,len(yy)):
+        y_out[0,k] = float(yy[k]) * data_out_max[0,k]        
+    left=round(y_out[0,0])*1
+    right=round(y_out[0,1])*1
+
+    print("\r %5d %5d" % (left,right),end = '')
+    if left >= 100:
+        left = 99
+    if left <= -100:
+        left = -99
+    if right >= 100:
+        right = 99
+    if right <= -100:
+        right = -99
+    mL.run(left)
+    mR.run(right)
+    end = time.time()
+    if end-start > TIME:
+        print("\n")
+        print("Time : ",np.floor(end-start))
+        break
+
+
 camera.rawCapture.truncate(0) 
+print("\n")
+print("Bye bye")
 vw.release()        
 mL.run(0)
 mR.run(0)
 
+os.system('reset')
