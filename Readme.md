@@ -1,11 +1,11 @@
-## NN_SSR2/Li から引き継ぎました．NN_SSR2 は削除する予定ですので，こちらで作業してください．
+## NN_SSR2/Li から引き継ぎました．
+NN_SSR2 は削除する予定ですので，こちらで作業してください．
 
 スキッドステアリングロボット(SSR3)をニューラルネットワーク(NN)を用いて
 自律走行実験します．
 前面の単眼カメラでとらえた画像データを入力とし，NNが左右のモーターの出力値を決定します．
 
-![ssr3](https://github.com/HondaLab/NN_SSR3/blob/main/SSR3a.JPG)
-<img src="https://github.com/HondaLab/NN_SSR3/blob/main/SSR3a.JPG" width="120">
+<img src="https://github.com/HondaLab/NN_SSR3/blob/main/SSR3a.JPG" width="480" align="center">
 
 前提として，ロボットとPCは[wifiでネットワーク接続](https://github.com/HondaLab/Robot-Intelligence/wiki/wifi%E3%81%AE%E8%A8%AD%E5%AE%9A)されている必要があります．
 
