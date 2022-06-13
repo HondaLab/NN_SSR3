@@ -16,6 +16,14 @@ NNが左右のモーターの出力値を決定します．
 3. 自律走行
 
 ## 0.要件
+ロボットとPCをwifiでつないで自律走行実験を行います．
+ロボットはRaspberry Piでコントロールされます．
+Raspberry Pi のOSはDebianベースのRaspOSというLinuxです．
+PCからVNCでロボットに接続します．
+PCのOSはVNC viewerとPython3が動けば，Windowsでも大丈夫かもしれません．
+ロボットと同じLinuxを用いた方が運用しやすいでしょう．
+
+
 このレポジトリでは，NNの計算をChainer Frameworkを用いて行っています．
 インストールしていない場合は，ロボットとPCの双方でChainerをインストールしてください．
 ```
