@@ -21,7 +21,7 @@ NNが左右のモーターの出力値を決定します．
 Raspberry Pi のOSはDebianベースのRaspOSというLinuxです．
 PCからVNCでロボットに接続します．
 PCのOSはVNC viewerとPython3が動けば，Windowsでも大丈夫かもしれません．
-ロボットと同じLinuxを用いた方が運用しやすいでしょう．
+ロボットと同じLinuxを用いた方が操作などが共通なので，運用しやすいでしょう．
 
 
 このレポジトリでは，NNの計算をChainer Frameworkを用いて行っています．
