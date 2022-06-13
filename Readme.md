@@ -15,10 +15,12 @@ NNが左右のモーターの出力値を決定します．
 2. NNの学習
 3. 自律走行
 
-## 0.必要要件
+## 0.要件
 このレポジトリでは，NNの計算をChainer Frameworkを用いて行っています．
 インストールしていない場合は，ロボットとPCの双方でChainerをインストールしてください．
-  pip install chainer
+```
+pip install chainer
+```
 
 
 ## 1.教師データの収集
